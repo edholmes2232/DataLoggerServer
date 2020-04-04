@@ -17,7 +17,7 @@ int slaveIndex = 0;
 void SchedulerStart(void){
     //tByte activeSlaves;
     int slaveID; //create array
-    printf("Waiting for %d slaves to connect\n", NUM_SLAVES);
+    printf("Waiting for %d Nodes to connect\n", NUM_SLAVES);
 
     activeSlaves = 0;
     slaveIndex = 0;

@@ -20,7 +20,7 @@ void ConfigRead(void) {
         //return(EXIT_FAILURE);
     }
 
-    if (config_lookup_int(&cfg, "NUM_SLAVES", &NUM_SLAVES))
+    if (config_lookup_int(&cfg, "NUM_NODES", &NUM_SLAVES))
         printf("NODES: %d\n",NUM_SLAVES);
     else 
         printf("NUM_SLAVES NOT FOUND");
