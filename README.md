@@ -1,7 +1,7 @@
 # Data Logger - Server Program
 ## 0 Wiring up the Arduino Nano IoT 33 and NEO-6M GPS Module
 Connect the Arduino and Module using the following diagram:
-![alt text](https://github.com/edholmes2232/DataLoggerServer/arduino-wiring.png "Wiring diagram")
+<img src="https://raw.githubusercontent.com/edholmes2232/DataLoggerServer/master/arduino-wiring.png" width="438" height="324" />
 
 
 
