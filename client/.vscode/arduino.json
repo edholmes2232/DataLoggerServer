@@ -1,0 +1,6 @@
+{
+    "programmer": "AVR ISP",
+    "board": "arduino:samd:nano_33_iot",
+    "port": "/dev/ttyACM1",
+    "sketch": "client.ino"
+}

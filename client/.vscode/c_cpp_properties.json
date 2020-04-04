@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/ed/.arduino15/packages/arduino/tools/**",
+                "/home/ed/.arduino15/packages/arduino/hardware/samd/1.8.4/**"
+            ],
+            "forcedInclude": [
+                "/home/ed/.arduino15/packages/arduino/hardware/samd/1.8.4/cores/arduino/Arduino.h",
+                "/home/ed/Arduino/libraries/",
+                "/home/ed/Arduino/libraries/SPI"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
