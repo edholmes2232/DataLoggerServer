@@ -6,7 +6,7 @@ int funct(int);
 void SIGPIPE_HANDLER(int);
 int NetcomReconnect(int);
 void NetcomInit(void);
-int NetcomSlaveAccept(void);
+int NetcomNodeAccept(void);
 void NetcomUpdate(void);
 void NetcomSendMsg(char, int);
 char NetcomRecMsg(int, char*,int);
@@ -33,7 +33,7 @@ typedef struct {
 } finalData;
 
 typedef struct{
-	int slaveID;
+	int nodeID;
 	int sock;
 } socketType;
 

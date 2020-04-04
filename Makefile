@@ -9,7 +9,7 @@ SRC := $(wildcard $(SRC_DIR)/*.c)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CPPFLAGS := -Iinclude #prepro
-CFLAGS   := #-Wall -g #compiler flags
+CFLAGS   := -Wall -g #compiler flags
 LDFLAGS  := -Llib -pthread#linker flags
 LDLIBS   := -Bstatic -lconfig -Bdynamic -lm -lrt #3rd p libs
 

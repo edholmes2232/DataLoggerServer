@@ -4,7 +4,7 @@
 #include <libconfig.h> //link instead?
 
 
-int DEBUG, NUM_SLAVES = 1;
+int DEBUG, NUM_NODES = 1;
 
 void ConfigRead(void) {
     
@@ -20,10 +20,10 @@ void ConfigRead(void) {
         //return(EXIT_FAILURE);
     }
 
-    if (config_lookup_int(&cfg, "NUM_NODES", &NUM_SLAVES))
-        printf("NODES: %d\n",NUM_SLAVES);
+    if (config_lookup_int(&cfg, "NUM_NODES", &NUM_NODES))
+        printf("NODES: %d\n",NUM_NODES);
     else 
-        printf("NUM_SLAVES NOT FOUND");
+        printf("NUM_NODES NOT FOUND");
  
     if (config_lookup_int(&cfg, "DEBUG", &DEBUG))
         printf("DEBUG FLAG: %d\n", DEBUG);

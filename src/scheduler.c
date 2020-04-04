@@ -4,92 +4,44 @@
 #include "config.h"
 #include <stdio.h>
 
-#define PKT_SIZE 2400
-char currentSlaveID[128];
-char slaveArray[128];
-int activeSlaves;
-
-int slaveAcks[128] = {0};
-
-
-int slaveIndex = 0;
+char nodeArray[128];
+int activeNodes;
+int nodeIndex = 0;
 
 void SchedulerStart(void){
-    //tByte activeSlaves;
-    int slaveID; //create array
-    printf("Waiting for %d Nodes to connect\n", NUM_SLAVES);
+    int nodeID; //create array
+    printf("Waiting for %d Nodes to connect\n", NUM_NODES);
 
-    activeSlaves = 0;
-    slaveIndex = 0;
+    activeNodes = 0;
+    nodeIndex = 0;
     do {
-        slaveID = NetcomSlaveAccept();
-        printf("Slave ID: %d connected",slaveID);
+        nodeID = NetcomNodeAccept();
+        printf("Node ID: %d connected,",nodeID);
 
-
-        if (slaveID != -1) {
-            slaveArray[slaveIndex] = slaveID;
-            activeSlaves++;
-            slaveIndex++;
+        if (nodeID != -1) {
+            nodeArray[nodeIndex] = nodeID;
+            activeNodes++;
+            nodeIndex++;
         } 
 
-        printf("\t%d of %d slaves connected\n",activeSlaves,NUM_SLAVES);
-    } while (slaveIndex < NUM_SLAVES);
+        printf("\t%d of %d nodes connected\n",activeNodes,NUM_NODES);
+    } while (nodeIndex < NUM_NODES);
 
-    //init all slaves
-    SlaveSendTicks('A');
-
-    //InterruptCreate();
+    //initialize all nodes
+    NodeSendTicks('A');
 }
 
 void IrqHandle(int sig) { 
     static int i = 1;
     if (i%21 == 0) { //request data after 20
-    /*
-        for (int j = 0; j < activeSlaves; j++) {
-            if (slaveAcks[j] > 0) {
-                printf("%d acks missed from slave %d\n",
-                        slaveAcks[j], j);
-            }
-            if (slaveAcks[j] > 15) {
-                printf("Slave %d most likely disconnected\n", j);
-                printf("Attempt rec\n");
-                if (NetcomReconnect(j) == 0) {
-                    slaveAcks[j] = 0;
-                }
-            }
-            slaveAcks[j]++;
-        } */
-        SlaveSendTicks('G');
-        //SlaveRecData();
-        i = 0;
-    } else if (i%5 == 0) {
-        //SlaveRecData(); //try recieve data every 5
+        NodeSendTicks('G');
+        //i = 0;
     }
     i++;
 }
 
-void SlaveSendTicks(char tick) {
-    //printf("Sending %c\n",tick);
-    for (int i = 0; i < activeSlaves; i++) {
+void NodeSendTicks(char tick) {
+    for (int i = 0; i < activeNodes; i++) {
         NetcomSendMsg(tick, i);
     }
-}
-/*
-void SlaveRecData() {
-    static char rtnv;
-    for (int i = 0; i < activeSlaves; i++) {
-        if (slaveAcks[i] < 16) {
-            rtnv = NetcomRecMsg(i, PKT_SIZE*(slaveAcks[i]+1));
-        } else {
-            rtnv = NetcomRecMsg(i, PKT_SIZE); //Stop buffer growing after disconnect
-        }
-        if (rtnv == 'H') slaveAcks[i] = 0;
-    }
-}
-*/
-
-void SchedulerUpdate(void) {
-
-    SlaveSendTicks('C');
-    //SlaveProcessAcks();
 }

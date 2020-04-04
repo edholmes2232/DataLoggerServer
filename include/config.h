@@ -3,5 +3,5 @@
 
 void ConfigRead(void);
 extern int DEBUG;
-extern int NUM_SLAVES;
+extern int NUM_NODES;
 #endif

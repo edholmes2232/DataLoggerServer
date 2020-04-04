@@ -9,8 +9,8 @@ void SchedulerUpdate(void);
 void SchedulerDispatch(void);
 void bufferCollect(int);
 void IrqHandle(int);
-void SlaveSendTicks(char);
+void NodeSendTicks(char);
 
-void SlaveRecData(void);
+void NodeRecData(void);
 
 #endif
