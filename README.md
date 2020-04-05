@@ -1,6 +1,8 @@
 # Data Logger - Server Program
 ## 0 Wiring up the Arduino Nano IoT 33 and NEO-6M GPS Module
 Connect the Arduino and Module using the following diagram:
+
+
 <img src="https://raw.githubusercontent.com/edholmes2232/DataLoggerServer/master/arduino-wiring.png" width="438" height="324" />
 
 
@@ -29,6 +31,7 @@ Do not type the "$"
 
 ### 3 Finding the IP Address
 Open Command prompt (Go to Start, and type "cmd"), and type `> ipconfig`
+
 Note the IP address listed as IPv4 Address
 
 ### 4 Arduino Setup
@@ -62,6 +65,7 @@ const char *password = "pw1234pw1234";
 2. Edit the "Settings.cfg" file to list the number of Nodes to connect and enable/disable debug messages.
 2.1 Using Windows Explorer:
 Run in the Ubuntu terminal window `explorer.exe . ` (note the period)
+
 Edit the Settings.cfg in Notepad (Select "Open With" and select "Notepad" from the list), Save when finished
 2.2 Using the 'nano' editor:
 `nano Settings.cfg`
@@ -78,18 +82,12 @@ The following will show the latest 10 lines from each Node.
 1. Open a second Ubuntu window (click the icon again)
 2. Change Directory into the DataLoggerServer folder (Step #1.5)
 3. Type the following Command 
-`watch???`
+`watch -n 1 tail -n 20 "Slave*"`
 4. This only watches the files, it doesn't modify the data
 5. Exit using 'Ctrl+C'
 
 ## 6 Extracting Data from Linux/Ubuntu to Windows
 1. Each Node saves its data in a seperate file with it's Node ID, and the date/time the program was run e.g. "Node-3-0404-12:45.txt'
 2. Run `explorer.exe . `
-3. Copy the "Slave-X-DDMM-HHMM.txt" files to your desired folder
-4. It is recommended to remove any old Slave files from the directory after use to allow the "watch" command to work
-
-
-
-
-
-
+3. Copy the "Node-X-DDMM-HHMM.txt" files to your desired folder
+4. It is recommended to remove any old Node files from the directory after use to allow the "watch" command to work
