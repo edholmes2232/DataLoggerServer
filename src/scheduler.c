@@ -8,6 +8,7 @@ char nodeArray[128];
 int activeNodes;
 int nodeIndex = 0;
 
+
 void SchedulerStart(void){
     int nodeID; //create array
     printf("Waiting for %d Nodes to connect\n", NUM_NODES);

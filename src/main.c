@@ -3,7 +3,9 @@
 #include "scheduler.h"
 #include "netcom.h"
 #include "config.h"
+#include "interrupt.h"
 #include <signal.h>
+#include <unistd.h>
 
 int main() {
     //sigaction(SIGPIPE, &(struct sigaction){SIGPIPE_HANDLER}, NULL);
@@ -24,9 +26,7 @@ int main() {
     
     InterruptCreate();
     collectionFlag = 1;
-    for (;;) {
-        sleep();
-    }
+    for (;;) { } //infinate loop
 
 
     return 0;

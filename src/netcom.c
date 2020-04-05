@@ -23,7 +23,7 @@ char msg[12][21];
 
 char fileName[25][30];
 
-FILE *fp;
+FILE *fp[25];
 int clientReady[25] = {0};
 int collectionFlag = 0;
 
@@ -87,21 +87,27 @@ void NetcomInit()  //Setup Sockets
 void NetcomSaveData(int nodeID, char buffer[2048], int rMsg) {
 
 	movementType *m;
-	if (rMsg > 1) {
-		fp = fopen(fileName[nodeID], "a");
-		printf("\rData from #%d:%dbits",nodeID,rMsg);
+	if (rMsg == 1) {
+	} else if (rMsg > 1) {
+		
+		//fp = fopen(fileName[nodeID], "a");
+		if (DEBUG) {
+			printf("Data from #%d:%dbits\n",nodeID,rMsg);
+		} else {
+			printf("\rData from #%d:%dbits",nodeID,rMsg);
+		}
 		fflush(stdout);
 		m = (movementType *) buffer;
 		int ndata = rMsg / sizeof(movementType);
 
 		for (int i=0; i<ndata; i++) {
-			fprintf(fp,"%.2f,%.2f,%.2f,\t\t%.2f,%.2f,%.2f,\t\t%f,%f,\t\t\t%d:%d:%d:%d\n",
+			fprintf(fp[nodeID],"%.2f,%.2f,%.2f,\t\t%.2f,%.2f,%.2f,\t\t%f,%f,\t\t\t%d:%d:%d:%d\n",
 					m[i].ax, m[i].ay, m[i].az,  //accelerometer
 					m[i].gx, m[i].gy, m[i].gz, 	//gyroscope
 					m[i].lat,m[i].lng,			//GPS 
 					m[i].hour,m[i].min,m[i].sec,m[i].csec); //time
 		}
-		fclose(fp);
+		//fclose(fp);
 	} 
 }
 
@@ -111,8 +117,9 @@ void *socketThread(void *args) {
 	int nodeSocket = ((socketType*)args)->sock;
 	int nodeID = ((socketType*)args)->nodeID;
 	int rMsg;
+	fp[nodeID] = fopen(fileName[nodeID], "a");
 	clientReady[nodeID] = 1;
-	while(1) {
+	for (;;) {
 		if (collectionFlag) {
 			rMsg = recv(nodeSocket, buffer, sizeof(buffer), MSG_DONTWAIT); 
 
@@ -160,10 +167,12 @@ int NetcomNodeAccept() {
     if(pthread_create(&tid[i],NULL,socketThread,args)<0){
 		perror("threading");
 	}
-	//collectionFlag = 1;
-	//while (!clientReady);
-	//collectionFlag = 0;
+	/*
+	printf("\tWaiting for GPS fix...");
+	collectionFlag = 1;
 	while(!clientReady[nodeID])
+	collectionFlag = 0;
+	printf("\tGPS Ready!\n");*/
 	return nodeID;
 }
 
