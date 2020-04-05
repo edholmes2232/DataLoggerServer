@@ -3,7 +3,7 @@
 Connect the Arduino and Module using the following diagram:
 
 
-<img src="https://raw.githubusercontent.com/edholmes2232/DataLoggerServer/master/arduino-wiring.png" width="438" height="324" />
+<img src="https://github.com/edholmes2232/DataLoggerServer/blob/master/arduino-wiring.png" width="438" height="324" />
 
 
 
@@ -63,11 +63,10 @@ const char *password = "pw1234pw1234";
 ## 5 Running the Server
 1. In "Ubuntu", ensure the current directory is the data logger (Step #1.5)
 2. Edit the "Settings.cfg" file to list the number of Nodes to connect and enable/disable debug messages.
-2.1 Using Windows Explorer:
+  1. Using Windows Explorer:
 Run in the Ubuntu terminal window `explorer.exe . ` (note the period)
-
 Edit the Settings.cfg in Notepad (Select "Open With" and select "Notepad" from the list), Save when finished
-2.2 Using the 'nano' editor:
+  2. Using the 'nano' editor:
 `nano Settings.cfg`
 3. To Save/Exit, pressy 'CTRL+X', 'Y' (Yes to saving the file), and 'Enter'
 4. Ensure all Arduino clients are Plugged in and the Wifi Network is on
@@ -82,7 +81,7 @@ The following will show the latest 10 lines from each Node.
 1. Open a second Ubuntu window (click the icon again)
 2. Change Directory into the DataLoggerServer folder (Step #1.5)
 3. Type the following Command 
-`watch -n 1 tail -n 20 "Slave*"`
+`watch -n 1 tail -n 20 "Node*"`
 4. This only watches the files, it doesn't modify the data
 5. Exit using 'Ctrl+C'
 
