@@ -11,6 +11,7 @@ void NetcomUpdate(void);
 void NetcomSendMsg(char, int);
 char NetcomRecMsg(int, char*,int);
 char sendData(int, char*, int);
+void NetcomDisconnect(int);
 #define MAX 80 
 #define PORT 8080 
 #define TRUE 1
