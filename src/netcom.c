@@ -12,7 +12,10 @@
 #include "netcom.h"
 #include "config.h"
 #include <pthread.h>
-
+extern int activeNodes;
+extern int nodeIndex;
+extern char nodeArray[128];
+pthread_t tid[60];
 //GLOBALS
 int opt = TRUE; 
 int masterSocket, addrLen, newSocket, clientSocket[30],
@@ -126,6 +129,7 @@ void *socketThread(void *args) {
 			NetcomSaveData(nodeID, buffer,rMsg);
 		}
 	}
+	printf("Thread %d closing\n", nodeID);
 	pthread_exit(NULL);
 }
 
@@ -136,7 +140,6 @@ int NetcomNodeAccept() {
 				(struct sockaddr *)&address, (socklen_t*)&addrLen))<0){ 
 		perror("ACCEPT");
 	}
-	pthread_t tid[60];
 	if(DEBUG)
 		printf("Connection accepted from %s:%d", inet_ntoa(address.sin_addr), ntohs(address.sin_port));
 	int i,nodeID;
@@ -190,5 +193,34 @@ void NetcomSendMsg(char message, int nodeID) {
 
 	if ( rtnv != 1){
 		perror("send"); 
+		printf("DISCONNECT DETECTED");
+		NetcomDisconnect(nodeID);
 	}  
 }
+
+void NetcomDisconnect(int nodeID) {
+	
+	pthread_cancel(tid[nodeID]);
+	clientSocket[nodeID] = 0;
+	nodeArray[nodeID] = 0;
+	printf("Reduce Index%d, active%d",nodeIndex,activeNodes);
+	activeNodes--;
+	nodeIndex--;
+	printf("RECONNECTING..");
+	
+
+
+	nodeID = NetcomNodeAccept();
+	printf("Node ID: %d connected,",nodeID);
+
+	if (nodeID != -1) {
+		nodeArray[nodeIndex] = nodeID;
+		activeNodes++;
+		nodeIndex++;
+	} 
+
+	printf("\t%d of %d nodes connected, initialising...\n",activeNodes,NUM_NODES);
+	NetcomSendMsg('A',nodeID);
+	
+}
+	
