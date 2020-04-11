@@ -95,7 +95,7 @@ void NetcomSaveData(int nodeID, char buffer[2048], int rMsg) {
 		
 		//fp = fopen(fileName[nodeID], "a");
 		if (DEBUG) {
-			printf("Data from #%d:%dbits\n",nodeID,rMsg);
+			printf("\nData from #%d:%dbits\n",nodeID,rMsg);
 		} else {
 			printf("\rData from #%d:%dbits",nodeID,rMsg);
 		}
@@ -185,12 +185,13 @@ void NetcomSendMsg(char message, int nodeID) {
 	static int rtnv = 0;
 	count ++;
 	if(DEBUG)
-		printf("SEND %c to %d ",message, nodeID);
+		printf("SEND %c to %d\t",message, nodeID);
 	rtnv = send(clientSocket[nodeID], &message, 1, MSG_NOSIGNAL);
+	/*
 	if (rtnv == -1) {
 		perror("sending error");
 	}
-
+*/
 	if ( rtnv != 1){
 		perror("send"); 
 		printf("DISCONNECT DETECTED");
