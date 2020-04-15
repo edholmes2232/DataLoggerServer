@@ -104,7 +104,7 @@ void NetcomSaveData(int nodeID, char buffer[2048], int rMsg) {
 		int ndata = rMsg / sizeof(movementType);
 
 		for (int i=0; i<ndata; i++) {
-			fprintf(fp[nodeID],"%.2f,%.2f,%.2f,\t\t%.2f,%.2f,%.2f,\t\t%f,%f,\t\t\t%d:%d:%d:%d\n",
+			fprintf(fp[nodeID],"%.4f,%.4f,%.4f,\t\t%.2f,%.2f,%.2f,\t\t%f,%f,\t\t\t%d:%d:%d:%d\n",
 					m[i].ax, m[i].ay, m[i].az,  //accelerometer
 					m[i].gx, m[i].gy, m[i].gz, 	//gyroscope
 					m[i].lat,m[i].lng,			//GPS 
