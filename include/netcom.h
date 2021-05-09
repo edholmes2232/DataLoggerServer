@@ -39,7 +39,7 @@ typedef struct{
 } socketType;
 
 typedef struct {
-	float ax,ay,az,gx,gy,gz,tv;
+	float ax,ay,az,gx,gy,gz,mx,my,mz,tv;
 	double lat,lng;
 	int hour,min,sec,csec;
 } movementType;
